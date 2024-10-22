@@ -112,16 +112,17 @@ async def upload(bot: Client, m: Message):
     else:
         MR = raw_text3
    
-    await editable.edit("Now send the Thumb url/nEg » https://graph.org/file/ce1723991756e48c35aa1.jpg \n Or if don't want thumbnail send = no")
+    editable4 = await m.reply_text(
+        "Now send the **Thumb url**\nEg : ```https://telegra.ph/file/d9e24878bd4aba05049a1.jpg```\n\nor Send **no**"
+    )
     input6 = message = await bot.listen(editable.chat.id)
     raw_text6 = input6.text
-    await input6.delete(True)
-    await editable.delete()
 
     thumb = input6.text
     if thumb.startswith("http://") or thumb.startswith("https://"):
         getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
         thumb = "thumb.jpg"
+
     else:
         thumb == "no"
 
