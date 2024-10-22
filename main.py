@@ -45,7 +45,7 @@ async def restart_handler(_, m):
 
 @bot.on_message(filters.command(["upload"]))
 async def upload(bot: Client, m: Message):
-    editable = await m.reply_text('𝕤ᴇɴᴅ ᴛxᴛ ғɪʟᴇ ⚡️')
+    editable = await m.reply_text('**Send TXT file for download 📥⚡️**')
     input: Message = await bot.listen(editable.chat.id)
     x = await input.download()
     await input.delete(True)
@@ -72,13 +72,13 @@ async def upload(bot: Client, m: Message):
     raw_text = input0.text
     await input0.delete(True)
 
-    await editable.edit("**Now Please Send Me Your Batch Name**")
+    await editable.edit("**Enter Batch Name or send 'C' copy name**")
     input1: Message = await bot.listen(editable.chat.id)
     raw_text0 = input1.text
     await input1.delete(True)
     
 
-    await editable.edit("**𝔼ɴᴛᴇʀ ʀᴇ𝕤ᴏʟᴜᴛɪᴏɴ📸**\n144,240,360,480,720,1080 please choose quality")
+    await editable.edit("**Enter Resolution📸**\n**144,240,360,480,720,1080 please choose quality**")
     input2: Message = await bot.listen(editable.chat.id)
     raw_text2 = input2.text
     await input2.delete(True)
@@ -102,7 +102,7 @@ async def upload(bot: Client, m: Message):
     
     
 
-    await editable.edit("Now Enter A Caption to add caption on your uploaded file")
+    await editable.edit("**Enter A Highlighter (Download By) or send Co**")
     input3: Message = await bot.listen(editable.chat.id)
     raw_text3 = input3.text
     await input3.delete(True)
