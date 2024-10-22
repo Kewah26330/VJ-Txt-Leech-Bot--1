@@ -191,14 +191,63 @@ async def upload(bot: Client, m: Message):
                         time.sleep(e.x)
                         continue
                 else:
-                    Show = f"**⥥ 🄳🄾🅆🄽🄻🄾🄰🄳🄸🄽🄶⬇️⬇️... »**\n\n**📝Name »** `{name}\n❄Quality » {raw_text2}`\n\n**🔗URL »** `{url}`"
-                    prog = await m.reply_text(Show)
-                    res_file = await helper.download_video(url, cmd, name)
-                    filename = res_file
-                    await prog.delete(True)
-                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
-                    count += 1
-                    time.sleep(1)
+                   url1 = url
+
+            name = f'{str(count).zfill(3)}) {name1}'
+            Show = f"**Downloading:-**\n\n**Name :-** `{name}`\n\n**Url :-** `{url1}`"
+            prog = await m.reply_text(Show)
+            cc = f'**Title »** {name1}.mkv\n**Caption »** {raw_text0}\n**Index »** {str(count).zfill(3)}\n\n**Download BY** :- Group Admin'
+            if "pdf" in url:
+                cmd = f'yt-dlp -o "{name}.pdf" "{url1}"'
+            else:
+                cmd = f'yt-dlp -o "{name}.mp4" --no-keep-video --remux-video mkv "{url1}"'
+            try:
+                download_cmd = f"{cmd} -R 25 --fragment-retries 25 --external-downloader aria2c --downloader-args 'aria2c: -x 16 -j 32'"
+                os.system(download_cmd)
+
+                if os.path.isfile(f"{name}.mkv"):
+                    filename = f"{name}.mkv"
+                elif os.path.isfile(f"{name}.mp4"):
+                    filename = f"{name}.mp4"
+                elif os.path.isfile(f"{name}.pdf"):
+                    filename = f"{name}.pdf"
+
+
+#                 filename = f"{name}.mkv"
+                subprocess.run(
+                    f'ffmpeg -i "{filename}" -ss 00:01:00 -vframes 1 "{filename}.jpg"',
+                    shell=True)
+                await prog.delete(True)
+                reply = await m.reply_text(f"Uploading - ```{name}```")
+                try:
+                    if thumb == "no":
+                        thumbnail = f"{filename}.jpg"
+                    else:
+                        thumbnail = thumb
+                except Exception as e:
+                    await m.reply_text(str(e))
+
+                dur = int(helper.duration(filename))
+
+                start_time = time.time()
+                if "pdf" in url1:
+                    await m.reply_document(filename, caption=cc)
+                else:
+                    await m.reply_video(filename,
+                                        supports_streaming=True,
+                                        height=720,
+                                        width=1280,
+                                        caption=cc,
+                                        duration=dur,
+                                        thumb=thumbnail,
+                                        progress=progress_bar,
+                                        progress_args=(reply, start_time))
+                count += 1
+                os.remove(filename)
+
+                os.remove(f"{filename}.jpg")
+                await reply.delete(True)
+                time.sleep(1)
 
             except Exception as e:
                 await m.reply_text(
