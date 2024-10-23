@@ -112,7 +112,7 @@ async def upload(bot: Client, m: Message):
     else:
         MR = raw_text3
    
-    await editable.edit("Now send the **Thumb url**/nEg »\n Or if don't want thumbnail send = No")
+    await editable.edit("Now send the **Thumb url**/nEg »\n Or if don't want thumbnail send = no")
     input6 = message = await bot.listen(editable.chat.id)
     raw_text6 = input6.text
     await input6.delete(True)
@@ -123,7 +123,7 @@ async def upload(bot: Client, m: Message):
         getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
         thumb = "thumb.jpg"
     else:
-        thumb == "No"
+        thumb == "no"
 
     if len(links) == 1:
         count = 1
