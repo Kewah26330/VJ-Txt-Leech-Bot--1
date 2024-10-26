@@ -150,7 +150,10 @@ async def upload(bot: Client, m: Message):
 
             elif 'videos.classplusapp' in url:
              url = requests.get(f'https://media-cdn.classplus.com/10681/cc/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEwMDA4MTI0LCJvcmdJZCI6MTA2ODEsInR5cGUiOjEsIm1vYmlsZSI6IjkxNjI2NzQxMDY0OCIsIm5hbWUiOiJLYWphbCBOZXRhbSIsImVtYWlsIjoia2FqYWxuZXRhbTI5QGdtYWlsLmNvbSIsImlzSW50ZXJuYXRpb25hbCI6MCwiZGVmYXVsdExhbmd1YWdlIjoiRU4iLCJjb3VudHJ5Q29kZSI6IklOIiwiY291bnRyeUlTTyI6IjkxIiwidGltZXpvbmUiOiJHTVQrNTozMCIsImlzRGl5Ijp0cnVlLCJvcmdDb2RlIjoia2VldGEiLCJpc0RpeVN1YmFkbWluIjowLCJmaW5nZXJwcmludElkIjoiMmIzMDFjMzRiODkxZmJhMmE1Y2YyYjYyNDA3NjVhNDIiLCJpYXQiOjE3Mjk4NDkxMDAsImV4cCI6MTczMDQ1MzkwMH0.DOQwDxC59ikx-jh5VF4umYuXIdjUy7-ZqXJ_hrg8CsdFXoagDPf17EO99nf164iH'}).json()['url']
-                  
+
+            elif 'videos.classplusapp' in url:
+             url = requests.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEzNDEyNCIsImVtYWlsIjoicmFqdmVybWExMjUwNUBnbWFpbC5jb20iLCJ0aW1lc3RhbXAiOjE3Mjk2NzExMTJ9.vjoxHJO86QFPeVpymIJngHhtMIbtoVE67qIBNuf5z18'}).json()['url']
+                
             elif '/master.mpd' in url:
              id =  url.split("/")[-2]
              url =  "https://d26g5bnklkwsh4.cloudfront.net/" + id + "/master.m3u8"
